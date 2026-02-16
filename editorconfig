@@ -1,0 +1,5 @@
+root = true
+
+[*] //indica que todos os arquivos serão afetados, caso fosse apenas os js seria [.js]
+indent_style = space
+indent_size = 2

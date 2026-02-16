@@ -1,0 +1,31 @@
+{
+  "name": "inventory-manage",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "inventory",
+    "node",
+    "javascript",
+    "web"
+  ],
+  "homepage": "https://github.com/pferrette/inventory-manager#readme",
+  "bugs": {
+    "url": "https://github.com/pferrette/inventory-manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pferrette/inventory-manager.git"
+  },
+  "license": "ISC",
+  "author": "Pedro Ferrette",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:check":"prettier --check .",
+    "lint:fix":"prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
+  }
+}

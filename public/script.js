@@ -13,12 +13,10 @@ thead.appendChild(trow);
 
 var headLine = document.createElement("th");
 trow.appendChild(headLine);
-var ValorPuxadoDoDB = "Valor1";
-headLine.innerHTML = ValorPuxadoDoDB;
 
 var headLine2 = document.createElement("th");
 trow.appendChild(headLine2);
-headLine2.innerHTML = "Valor2";
+headLine2.textContent = "Valor2";
 
 var headLine3 = document.createElement("th");
 trow.appendChild(headLine3);
@@ -51,3 +49,15 @@ datalineLine3.innerHTML = "data3";
 var datalineLine4 = document.createElement("td");
 tbrow.appendChild(datalineLine4);
 datalineLine4.innerHTML = "data4";
+
+// ------ connection to server
+const baseUrl = "http://localhost:5000/info";
+document.getElementById("btnUser").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const res = await fetch(baseUrl, {
+    method: "GET",
+  });
+  console.log(res);
+  const data = await res.json();
+  headLine.textContent = data.info;
+});

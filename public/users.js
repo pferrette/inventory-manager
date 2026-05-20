@@ -5,7 +5,6 @@ var tbody = document.createElement("tbody");
 document.getElementById("div_user").appendChild(table);
 
 table.appendChild(thead);
-// table.appendChild(tbody);
 
 //---------------- head
 var trow = document.createElement("tr");
@@ -28,34 +27,39 @@ trow.appendChild(headLine4);
 headLine4.innerHTML = "Email";
 
 //--------------- line body 1
+table.appendChild(tbody);
 var tbrow = table.insertRow(1);
-
-//--------td
-var cell = tbrow.insertCell(0);
-var nextCell = " ";
+tbody.appendChild(tbrow);
 
 // ------ connection to server
-const baseUrl = "http://localhost:5000/info";
+const baseUrl = "http://localhost:5000/user";
 document.getElementById("btnUser").addEventListener("click", async (e) => {
   e.preventDefault();
   const res = await fetch(baseUrl, {
     method: "GET",
   });
-  console.log(res);
+  //console.log(res);
   const data = await res.json();
-  // console.log(Object.values(data.info)[0]);
-  console.log(data.info);
 
-  for (let row = 0; row < 4; row++) {
+  var users = data.user;
+  for (let row = 0; row < users.length; row++) {
     tbrow = table.insertRow(row);
-    for (let col = 0; col < 4; col++) {
-      cell = tbrow.insertCell(col);
-      cell.textContent = Object.values(data.info[col])[col];
+    tbody.appendChild(tbrow);
 
-      // cell.textContent = Object.values(data.info)[col].ID;
-      // cell2.textContent = Object.values(data.info)[col].Name;
-      // cell3.textContent = Object.values(data.info)[col].CenterCost;
-      // cell4.textContent = Object.values(data.info)[col].Email;
-    }
+    cell_ID = tbrow.insertCell(0);
+    cell_ID.textContent = Object.values(users)[row].ID;
+
+    cell_Name = tbrow.insertCell(1);
+    cell_Name.textContent = Object.values(users)[row].Name;
+
+    cell_CC = tbrow.insertCell(2);
+    cell_CC.textContent = Object.values(users)[row].CenterCost;
+
+    cell_Email = tbrow.insertCell(3);
+    cell_Email.textContent = Object.values(users)[row].Email;
   }
 });
+
+/*TODO:
+
+*/

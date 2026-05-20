@@ -32,7 +32,7 @@ var tbrow = table.insertRow(1);
 tbody.appendChild(tbrow);
 
 // ------ connection to server
-const baseUrl = "http://localhost:5000/user";
+const baseUrl = "http://localhost:5000/userInfo";
 document.getElementById("btnUser").addEventListener("click", async (e) => {
   e.preventDefault();
   const res = await fetch(baseUrl, {
@@ -61,5 +61,6 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
 });
 
 /*TODO:
-
+- WORK ON POST method
+  - CREATE HTML FORM
 */

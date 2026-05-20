@@ -7,10 +7,12 @@ const port = 5000;
 
 app.use(express.static("public"));
 
-app.get("/user", (req, res) => {
+app.get("/userInfo", (req, res) => {
   const getUser = db.prepare("SELECT * FROM Users");
-  //console.log(getUser.all());
   res.status(200).json({ user: getUser.all() });
+  //res.sendFile("user.html");
 });
+
+// app.post("/userPost", (req, res) => {});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

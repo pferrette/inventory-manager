@@ -32,10 +32,10 @@ var tbrow = table.insertRow(1);
 tbody.appendChild(tbrow);
 
 // ------ connection to server
-const baseUrl = "http://localhost:5000/userInfo";
+const baseUrl = "http://localhost:5000/";
 document.getElementById("btnUser").addEventListener("click", async (e) => {
   e.preventDefault();
-  const res = await fetch(baseUrl, {
+  const res = await fetch(baseUrl + "userInfo", {
     method: "GET",
   });
   //console.log(res);
@@ -58,6 +58,25 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
     cell_Email = tbrow.insertCell(3);
     cell_Email.textContent = Object.values(users)[row].Email;
   }
+});
+
+document.getElementById("btnPostUser").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const inputName = document.getElementById("inputName");
+  const inputCC = document.getElementById("inputCC");
+  const inputEmail = document.getElementById("inputEmail");
+
+  const res = await fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: inputName.value,
+      cc: inputCC.value,
+      email: inputEmail.value,
+    }),
+  });
 });
 
 /*TODO:

@@ -18,7 +18,20 @@ const getUsers = async (req, res) => {
   } catch (error) {
     throw error;
   } finally {
-    await pool.end();
+    //await pool.end();
+  }
+};
+
+const getUserById = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  console.log(id);
+  try {
+    const results = await pool.query(`SELECT * FROM "Users" WHERE "Id"=${id}`);
+    res.status(200).json(results.rows);
+  } catch (error) {
+    throw error;
+  } finally {
+    //await pool.end();
   }
 };
 
@@ -35,4 +48,4 @@ VALUES ('${name}', '${cc}');`);
   }
 };
 
-module.exports = { getUsers, createUser };
+module.exports = { getUsers, createUser, getUserById };

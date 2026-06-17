@@ -38,7 +38,6 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
   const res = await fetch(baseUrl + "userInfo", {
     method: "GET",
   });
-  //console.log(res);
   const data = await res.json();
 
   var users = data.user;
@@ -47,16 +46,16 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
     tbody.appendChild(tbrow);
 
     cell_ID = tbrow.insertCell(0);
-    cell_ID.textContent = Object.values(users)[row].ID;
+    cell_ID.textContent = Object.values(users)[row].Id;
 
     cell_Name = tbrow.insertCell(1);
     cell_Name.textContent = Object.values(users)[row].Name;
 
     cell_CC = tbrow.insertCell(2);
-    cell_CC.textContent = Object.values(users)[row].CenterCost;
+    cell_CC.textContent = Object.values(users)[row].CC;
 
-    cell_Email = tbrow.insertCell(3);
-    cell_Email.textContent = Object.values(users)[row].Email;
+    // cell_Email = tbrow.insertCell(3);
+    // cell_Email.textContent = Object.values(users)[row].Email;
   }
 });
 

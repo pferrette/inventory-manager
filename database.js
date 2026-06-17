@@ -1,6 +1,25 @@
-const Database = require("better-sqlite3");
-const db = new Database("test.db");
+require("dotenv").config();
 
-db.exec("SELECT * FROM Users");
+const { Client, Pool } = require("pg");
 
-module.exports = db;
+const pool = new Pool({
+  host: process.env.PGHOST,
+  port: "5432",
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  ssl: process.env.NODE_ENV === "production" ? true : false,
+});
+
+const getUsers = async (req, res) => {
+  try {
+    const results = await pool.query(`select * from "Users"`);
+    res.status(200).json({ user: results.rows });
+  } catch (error) {
+    throw error;
+  } finally {
+    //await pool.end();
+  }
+};
+
+module.exports = { getUsers };

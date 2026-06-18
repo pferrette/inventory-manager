@@ -73,7 +73,6 @@ document.getElementById("btnPostUser").addEventListener("click", async (e) => {
     body: JSON.stringify({
       name: inputName.value,
       cc: inputCC.value,
-      email: inputEmail.value,
     }),
   });
 });

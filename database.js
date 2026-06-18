@@ -18,8 +18,21 @@ const getUsers = async (req, res) => {
   } catch (error) {
     throw error;
   } finally {
-    //await pool.end();
+    await pool.end();
   }
 };
 
-module.exports = { getUsers };
+const createUser = async (req, res) => {
+  const { name, cc } = req.body;
+  try {
+    const results = await pool.query(`INSERT INTO "Users" ("Name", "CC")
+VALUES ('${name}', '${cc}');`);
+    res.status(201).send(`User Added`);
+  } catch (error) {
+    throw error;
+  } finally {
+    // await pool.end();
+  }
+};
+
+module.exports = { getUsers, createUser };

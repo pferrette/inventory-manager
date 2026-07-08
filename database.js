@@ -50,8 +50,7 @@ VALUES ('${name}', '${cc}');`);
 
 const updateUsers = async (req, res) => {
   const id = parseInt(req.params.id, 10);
-  console.log(req.body);
-  console.log(req.params);
+
   const { name, cc } = req.body;
   try {
     await pool.query(
@@ -67,4 +66,22 @@ const updateUsers = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, getUserById, updateUsers };
+const deleteUsers = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    console.log(id);
+    await pool.query('DELETE FROM "Users" WHERE "Id" = $1', [id]);
+  } catch (error) {
+    throw error;
+  } finally {
+    // await pool.end();
+  }
+};
+
+module.exports = {
+  getUsers,
+  createUser,
+  getUserById,
+  updateUsers,
+  deleteUsers,
+};

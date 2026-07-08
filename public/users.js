@@ -108,3 +108,14 @@ btnUpdate.addEventListener("click", async (e) => {
     }),
   });
 });
+
+document
+  .getElementById("btnDeleteUser")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const res = await fetch(`${baseUrl}userInfo/${ident}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+  });

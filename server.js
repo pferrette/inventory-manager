@@ -21,4 +21,6 @@ app.post("/", postgres.createUser);
 
 app.put("/userInfo/:id", postgres.updateUsers);
 
+app.delete("/userInfo/:id", postgres.deleteUsers);
+
 app.listen(port, () => console.log(`Server running on port ${port}`));

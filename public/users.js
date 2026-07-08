@@ -39,7 +39,7 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
     method: "GET",
   });
   const data = await res.json();
-
+  console.log(data);
   var users = data.user;
   for (let row = 0; row < users.length; row++) {
     tbrow = table.insertRow(row);
@@ -54,8 +54,8 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
     cell_CC = tbrow.insertCell(2);
     cell_CC.textContent = Object.values(users)[row].CC;
 
-    // cell_Email = tbrow.insertCell(3);
-    // cell_Email.textContent = Object.values(users)[row].Email;
+    cell_Email = tbrow.insertCell(3);
+    cell_Email.textContent = Object.values(users)[row].Email;
   }
 });
 
@@ -72,6 +72,7 @@ document.getElementById("btnPostUser").addEventListener("click", async (e) => {
     body: JSON.stringify({
       name: inputName.value,
       cc: inputCC.value,
+      email: inputEmail.value,
     }),
   });
 });
@@ -84,11 +85,13 @@ table.addEventListener("click", function (event) {
   if (!row) return;
 
   ident = row.cells[0].innerText;
+
   document.getElementById("lblId").innerText = "ID: " + ident;
   btnUpdate.disabled = false;
 
   inputName.value = row.cells[1].innerText;
   inputCC.value = row.cells[2].innerText;
+  inputEmail.value = row.cells[3].innerText;
 });
 
 const btnUpdate = document.getElementById("btnUpdateUser");
@@ -105,6 +108,7 @@ btnUpdate.addEventListener("click", async (e) => {
     body: JSON.stringify({
       name: inputName.value,
       cc: inputCC.value,
+      email: inputEmail.value,
     }),
   });
 });

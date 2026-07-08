@@ -19,4 +19,6 @@ app.get("/userInfo/:id", postgres.getUserById);
 
 app.post("/", postgres.createUser);
 
+app.put("/userInfo/:id", postgres.updateUsers);
+
 app.listen(port, () => console.log(`Server running on port ${port}`));

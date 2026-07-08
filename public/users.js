@@ -59,14 +59,46 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
   }
 });
 
+const inputName = document.getElementById("inputName");
+const inputCC = document.getElementById("inputCC");
+const inputEmail = document.getElementById("inputEmail");
+
 document.getElementById("btnPostUser").addEventListener("click", async (e) => {
   e.preventDefault();
-  const inputName = document.getElementById("inputName");
-  const inputCC = document.getElementById("inputCC");
-  const inputEmail = document.getElementById("inputEmail");
 
   const res = await fetch(baseUrl, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: inputName.value,
+      cc: inputCC.value,
+    }),
+  });
+});
+
+// let id;
+let ident;
+table.addEventListener("click", function (event) {
+  const row = event.target.closest("tr");
+
+  if (!row) return;
+
+  ident = row.cells[0].innerText;
+  document.getElementById("lblId").innerText = "ID: " + ident;
+  btnUpdate.disabled = false;
+
+  inputName.value = row.cells[1].innerText;
+  inputCC.value = row.cells[2].innerText;
+});
+
+const btnUpdate = document.getElementById("btnUpdateUser");
+
+btnUpdate.disabled = true;
+btnUpdate.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const res = await fetch(`${baseUrl}userInfo/${ident}`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,8 +108,3 @@ document.getElementById("btnPostUser").addEventListener("click", async (e) => {
     }),
   });
 });
-
-/*TODO:
-- WORK ON POST method
-  - CREATE HTML FORM
-*/

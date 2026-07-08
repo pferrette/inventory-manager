@@ -48,4 +48,23 @@ VALUES ('${name}', '${cc}');`);
   }
 };
 
-module.exports = { getUsers, createUser, getUserById };
+const updateUsers = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  console.log(req.body);
+  console.log(req.params);
+  const { name, cc } = req.body;
+  try {
+    await pool.query(
+      'UPDATE "Users" SET "Name" = $1, "CC" = $2 WHERE "Id" = $3',
+      [name, cc, id],
+    );
+
+    res.status(200).send(`User modified with ID: ${id}`);
+  } catch (error) {
+    throw error;
+  } finally {
+    // await pool.end();
+  }
+};
+
+module.exports = { getUsers, createUser, getUserById, updateUsers };

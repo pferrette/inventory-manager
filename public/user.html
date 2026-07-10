@@ -4,12 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Users</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      th,
+      td {
+        padding: 10px 20px;
+        border: 1px solid #000;
+      }
+    </style>
   </head>
   <header>
     <a href="index.html">Back</a>
   </header>
   <body>
-    <h1>Users</h1>
-    <table></table>
+    <div id="div_user">
+      <form action="">
+        <label for="uname" id="lblId">ID:</label><br />
+        <label for="uname">Name:</label><br />
+        <input type="text" id="inputName" /><br />
+        <label for="ucc">Center Cost:</label><br />
+        <input type="text" id="inputCC" /><br />
+        <label for="uemail">Email:</label><br />
+        <input type="text" id="inputEmail" /><br /><br />
+        <button id="btnPostUser">Submit</button>
+        <button id="btnUpdateUser">Update</button><br /><br />
+        <button id="btnDeleteUser">Delete</button><br /><br />
+      </form>
+      <button id="btnUser">Refresh</button>
+      <script src="users.js"></script>
+    </div>
   </body>
 </html>

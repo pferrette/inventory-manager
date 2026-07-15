@@ -1,5 +1,6 @@
 const express = require("express");
 const postgres = require("./database");
+const deviceRepo = require("./repositories/deviceRepository");
 
 const app = express();
 
@@ -22,5 +23,7 @@ app.post("/", postgres.createUser);
 app.put("/userInfo/:id", postgres.updateUsers);
 
 app.delete("/userInfo/:id", postgres.deleteUsers);
+
+app.get("/deviceInfo", deviceRepo.getDevices);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

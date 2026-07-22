@@ -78,15 +78,15 @@ document.getElementById("btnPostUser").addEventListener("click", async (e) => {
 });
 
 // let id;
-let ident;
+let user_id;
 table.addEventListener("click", function (event) {
   const row = event.target.closest("tr");
 
   if (!row) return;
 
-  ident = row.cells[0].innerText;
+  user_id = row.cells[0].innerText;
 
-  document.getElementById("lblId").innerText = "ID: " + ident;
+  document.getElementById("lblId").innerText = "ID: " + user_id;
   btnUpdate.disabled = false;
 
   inputName.value = row.cells[1].innerText;
@@ -100,7 +100,7 @@ btnUpdate.disabled = true;
 btnUpdate.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const res = await fetch(`${baseUrl}userInfo/${ident}`, {
+  const res = await fetch(`${baseUrl}userInfo/${user_id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -118,7 +118,7 @@ document
   .addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${baseUrl}userInfo/${ident}`, {
+    const res = await fetch(`${baseUrl}userInfo/${user_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });

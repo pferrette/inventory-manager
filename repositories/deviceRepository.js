@@ -2,7 +2,9 @@ const { pool } = require("../database.js");
 
 const getDevices = async (req, res) => {
   try {
-    const results = await pool.query(`select * from "Devices"`);
+    const results = await pool.query(
+      `SELECT "Devices"."Id","Name" as "User",	"Hostname",	"AssetTag",	"Model",	"ServiceTag",	"ExpressCode",	"Warranty",	"Comments" FROM "Devices" INNER JOIN "Users" ON "Devices"."UserID" = "Users"."Id";`,
+    );
     res.status(200).json({ device: results.rows });
   } catch (error) {
     throw error;
@@ -40,23 +42,23 @@ const getDevices = async (req, res) => {
 //   }
 // };
 
-// const updateUsers = async (req, res) => {
-//   const id = parseInt(req.params.id, 10);
+const makeComment = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-//   const { name, cc, email } = req.body;
-//   try {
-//     await pool.query(
-//       'UPDATE "Users" SET "Name" = $1, "CC" = $2, "Email" = $3 WHERE "Id" = $4',
-//       [name, cc, email, id],
-//     );
+  const { comment } = req.body;
+  try {
+    await pool.query('UPDATE "Devices" SET "Comments" = $1 WHERE "Id" = $2', [
+      comment,
+      id,
+    ]);
 
-//     res.status(200).send(`User modified with ID: ${id}`);
-//   } catch (error) {
-//     throw error;
-//   } finally {
-//     // await pool.end();
-//   }
-// };
+    res.status(200).send(`Comment saved to DeviceID: ${id}`);
+  } catch (error) {
+    throw error;
+  } finally {
+    // await pool.end();
+  }
+};
 
 // const deleteUsers = async (req, res) => {
 //   const id = parseInt(req.params.id, 10);
@@ -70,8 +72,30 @@ const getDevices = async (req, res) => {
 //   }
 // };
 
+const changeUser = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  const { newUser } = req.body;
+  console.log({ newUser, id });
+  try {
+    await pool.query(
+      `UPDATE "Devices"
+        SET "UserID" = (
+        SELECT "Id"
+        FROM "Users"
+          WHERE "Name" = $1)
+      WHERE "Id" = $2`,
+      [newUser, id],
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getDevices,
+  makeComment,
+  changeUser,
   // createUser,
   // getUserById,
   // updateUsers,

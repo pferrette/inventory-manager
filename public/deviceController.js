@@ -1,6 +1,9 @@
 var table = document.createElement("table");
 var thead = document.createElement("thead");
 var tbody = document.createElement("tbody");
+var changeForm = document.getElementById("changeForm");
+
+changeForm.hidden = true;
 
 document.getElementById("div_device").appendChild(table);
 
@@ -92,18 +95,60 @@ document.getElementById("btnDevice").addEventListener("click", async (e) => {
   }
 });
 
+let device_id;
+const txtComment = document.getElementById("txtComments");
+const dhostname = document.getElementById("hostname");
+const actualUser = document.getElementById("actualUser");
+const asset = document.getElementById("asset");
+const model = document.getElementById("model");
+const serviceTag = document.getElementById("serviceTag");
+const express = document.getElementById("express");
+const newUser = document.getElementById("newUserInput");
 //Row Click
 table.addEventListener("click", function (event) {
   const row = event.target.closest("tr");
 
   if (!row) return;
 
-  // ident = row.cells[0].innerText;
+  device_id = row.cells[0].innerText;
+  document.getElementById("lblId").innerText = "ID: " + device_id;
 
-  // document.getElementById("lblId").innerText = "ID: " + ident;
-  // btnUpdate.disabled = false;
+  txtComment.value = row.cells[8].innerText;
 
-  // inputName.value = row.cells[1].innerText;
-  // inputCC.value = row.cells[2].innerText;
-  // inputEmail.value = row.cells[3].innerText;
+  actualUser.innerText += row.cells[1].innerText;
+  dhostname.innerText += row.cells[2].innerText;
+  asset.innerText += row.cells[3].innerText;
+  model.innerText += row.cells[4].innerText;
+  serviceTag.innerText += row.cells[5].innerText;
+  express.innerText += row.cells[6].innerText;
+});
+
+document.getElementById("btnChangeDevice").addEventListener("click", (e) => {
+  e.preventDefault();
+  changeForm.hidden = false;
+});
+
+document
+  .getElementById("btnCommentDevice")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
+    const res = await fetch(`${baseUrl}deviceInfo/${device_id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        comment: txtComment.value,
+      }),
+    });
+  });
+
+document.getElementById("saveChange").addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const res = fetch(`${baseUrl}changeUser/${device_id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      newUser: newUser.value,
+    }),
+  });
 });

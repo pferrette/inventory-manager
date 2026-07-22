@@ -26,4 +26,8 @@ app.delete("/userInfo/:id", postgres.deleteUsers);
 
 app.get("/deviceInfo", deviceRepo.getDevices);
 
+app.put("/deviceInfo/:id", deviceRepo.makeComment);
+
+app.put("/changeUser/:id", deviceRepo.changeUser);
+
 app.listen(port, () => console.log(`Server running on port ${port}`));

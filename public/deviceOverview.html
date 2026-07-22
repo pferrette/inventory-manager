@@ -11,13 +11,30 @@
   </header>
   <body>
     <h1>Devices</h1>
-    <form action="">
-      <label for="uname" id="lblId">ID:</label><br />
-      <label for="uname">Name:</label><br />
-      <input type="text" id="inputName" /><br />
-    </form>
-    <button id="btnDevice">Refresh</button>
-    <div id="div_device"></div>
+    <label for="dId" id="lblId">Device ID: </label><br /><br /><br />
+    <!-- <button id="btnAddDevice">Add Computer</button> -->
+    <!-- <div id="addComputerForm"></div> -->
+
+    <button id="btnChangeDevice">Change</button><br /><br /><br />
+    <div id="changeDeviceDiv">
+      <form action="" id="changeForm" hidden>
+        <label for="dHostname" id="hostname">Hostname: </label><br />
+        <label for="dActualUser" id="actualUser">Actual User: </label><br />
+        <label for="dAsset" id="asset">Asset Tag: </label><br />
+        <label for="model" id="model">Model: </label><br />
+        <label for="dServiceTag" id="serviceTag">Service Tag: </label><br />
+        <label for="dExpressCode" id="express">Express Code: </label><br />
+        <label for="dNewUser">New User: </label>
+        <input type="text" id="newUserInput" />
+        <button id="saveChange">Save</button><br /><br /><br />
+      </form>
+    </div>
+
+    <div id="deviceComments">
+      <textarea name="Comment" id="txtComments"></textarea><br />
+      <button id="btnCommentDevice">Comment</button><br /><br /><br />
+    </div>
+    <div id="div_device"><button id="btnDevice">Refresh</button><br /></div>
     <script src="deviceController.js"></script>
   </body>
 </html>

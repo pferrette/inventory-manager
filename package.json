@@ -25,7 +25,9 @@
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "test:watch": "jest --watch",
     "lint:check": "prettier --check .",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "prettier --write .",
+    "migration:create": "node-pg-migrate create",
+    "migration:up": "node-pg-migrate --envPath .env up"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
@@ -37,6 +39,7 @@
     "better-sqlite3": "^12.9.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "node-pg-migrate": "^8.0.4",
     "pg": "^8.21.0"
   }
 }

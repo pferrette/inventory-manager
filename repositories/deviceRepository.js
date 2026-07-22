@@ -3,7 +3,7 @@ const { pool } = require("../database.js");
 const getDevices = async (req, res) => {
   try {
     const results = await pool.query(
-      `SELECT "Devices"."Id","Name" as "User",	"Hostname",	"AssetTag",	"Model",	"ServiceTag",	"ExpressCode",	"Warranty",	"Comments" FROM "Devices" INNER JOIN "Users" ON "Devices"."UserID" = "Users"."Id";`,
+      `SELECT "Devices"."Id","Name" as "User",	"Hostname",	"AssetTag",	"Model",	"ServiceTag",	"ExpressCode",	"Warranty",	"Comments" FROM "Devices" INNER JOIN "users" ON "Devices"."UserID" = "users"."Id";`,
     );
     res.status(200).json({ device: results.rows });
   } catch (error) {
@@ -75,18 +75,19 @@ const makeComment = async (req, res) => {
 const changeUser = async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  const { newUser } = req.body;
+  const { newUser, userId } = req.body;
   console.log({ newUser, id });
   try {
     await pool.query(
       `UPDATE "Devices"
         SET "UserID" = (
         SELECT "Id"
-        FROM "Users"
+        FROM "users"
           WHERE "Name" = $1)
       WHERE "Id" = $2`,
       [newUser, id],
     );
+    //await pool.query(`INSERT INTO "LastChange" ("ComputerID","FromUser","ToUserID","ChangedDate") Values($1,$2,$3,$4);`,[id,])
   } catch (error) {
     throw error;
   }

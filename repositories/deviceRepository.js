@@ -97,8 +97,4 @@ module.exports = {
   getDevices,
   makeComment,
   changeUser,
-  // createUser,
-  // getUserById,
-  // updateUsers,
-  // deleteUsers,
 };

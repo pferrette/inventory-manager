@@ -1,6 +1,7 @@
 const express = require("express");
-const postgres = require("./database");
+// const postgres = require("./database");
 const deviceRepo = require("./repositories/deviceRepository");
+const userRepo = require("./repositories/userRepository");
 
 const app = express();
 
@@ -14,15 +15,15 @@ app.use(
   }),
 );
 
-app.get("/userInfo", postgres.getUsers);
+app.get("/userInfo", userRepo.getUsers);
 
-app.get("/userInfo/:id", postgres.getUserById);
+app.get("/userInfo/:id", userRepo.getUserById);
 
-app.post("/", postgres.createUser);
+app.post("/", userRepo.createUser);
 
-app.put("/userInfo/:id", postgres.updateUsers);
+app.put("/userInfo/:id", userRepo.updateUsers);
 
-app.delete("/userInfo/:id", postgres.deleteUsers);
+app.delete("/userInfo/:id", userRepo.deleteUsers);
 
 app.get("/deviceInfo", deviceRepo.getDevices);
 

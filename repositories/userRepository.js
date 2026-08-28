@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
   const { name, cc, email } = req.body;
   try {
     const results = await pool.query(
-      `INSERT INTO "users" ("Name", "CC", "Email")
+      `INSERT INTO "users" ("name", "center_cost", "email")
    VALUES ($1, $2, $3)`,
       [name, cc, email],
     );
@@ -46,7 +46,7 @@ const updateUsers = async (req, res) => {
   const { name, cc, email } = req.body;
   try {
     await pool.query(
-      'UPDATE "users" SET "Name" = $1, "CC" = $2, "Email" = $3 WHERE "Id" = $4',
+      'UPDATE "users" SET "name" = $1, "center_cost" = $2, "email" = $3 WHERE "id" = $4',
       [name, cc, email, id],
     );
 
@@ -62,7 +62,7 @@ const deleteUsers = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {
     console.log(id);
-    await pool.query('DELETE FROM "users" WHERE "Id" = $1', [id]);
+    await pool.query('DELETE FROM "users" WHERE "id" = $1', [id]);
   } catch (error) {
     throw error;
   } finally {

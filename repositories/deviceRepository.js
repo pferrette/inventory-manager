@@ -39,11 +39,11 @@ const changeUser = async (req, res) => {
   try {
     await pool.query(
       `UPDATE "devices"
-        SET "user_id" = (
+        SET user_id = (
         SELECT "id"
-        FROM "users"
+        FROM users
           WHERE "name" = $1)
-      WHERE "id" = $2`,
+      WHERE id = $2`,
       [newUser, id],
     );
     //await pool.query(`INSERT INTO "LastChange" ("ComputerID","FromUser","ToUserID","ChangedDate") Values($1,$2,$3,$4);`,[id,])

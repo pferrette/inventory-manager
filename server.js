@@ -1,7 +1,8 @@
 const express = require("express");
-// const postgres = require("./database");
 const deviceRepo = require("./repositories/deviceRepository");
 const userRepo = require("./repositories/userRepository");
+const mobileRepo = require("./repositories/mobileRepository");
+const lineRepo = require("./repositories/lineRepository");
 
 const app = express();
 
@@ -30,5 +31,25 @@ app.get("/deviceInfo", deviceRepo.getDevices);
 app.put("/deviceInfo/:id", deviceRepo.makeComment);
 
 app.put("/changeUser/:id", deviceRepo.changeUser);
+
+app.get("/mobileInfo", mobileRepo.getMobiles);
+
+app.get("/mobileInfo/:id", mobileRepo.getMobilesById);
+
+app.post("/", mobileRepo.createMobile);
+
+app.put("/mobileInfo/:id", mobileRepo.updateMobiles);
+
+app.delete("/mobileInfo/:id", mobileRepo.deleteMobiles);
+
+app.get("/linesInfo", lineRepo.getLines);
+
+app.get("/lineInfo/:id", lineRepo.getLineById);
+
+app.post("/", lineRepo.createLine);
+
+app.put("/lineInfo/:id", lineRepo.updateLines);
+
+app.delete("/lineInfo/:id", lineRepo.deleteLine);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

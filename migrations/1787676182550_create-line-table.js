@@ -21,7 +21,7 @@ exports.up = (pgm) => {
     type: {
       type: "varchar(30)",
     },
-    isUsing: {
+    is_Using: {
       type: "boolean",
     },
   });

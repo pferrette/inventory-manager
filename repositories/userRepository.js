@@ -24,15 +24,16 @@ const getUserById = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
-  const { name, cc, email } = req.body;
+const createUser = async (userData) => {
+  const { name, center_cost, email } = userData;
   try {
-    const results = await pool.query(
-      `INSERT INTO "users" ("name", "center_cost", "email")
-   VALUES ($1, $2, $3)`,
-      [name, cc, email],
+    const result = await pool.query(
+      `INSERT INTO users (name, center_cost, email)
+   VALUES ($1, $2, $3) 
+   RETURNING *`,
+      [name, center_cost, email],
     );
-    res.status(201).send(`User Added`);
+    return result.rows[0];
   } catch (error) {
     throw error;
   } finally {
@@ -43,11 +44,11 @@ const createUser = async (req, res) => {
 const updateUsers = async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  const { name, cc, email } = req.body;
+  const { name, center_cost, email } = req.body;
   try {
     await pool.query(
       "UPDATE users SET name = $1, center_cost = $2, email = $3 WHERE id = $4",
-      [name, cc, email, id],
+      [name, center_cost, email, id],
     );
 
     res.status(200).send(`User modified with ID: ${id}`);

@@ -24,7 +24,7 @@ exports.up = (pgm) => {
     mobile_id: {
       type: "integer",
     },
-    isSigned: {
+    is_signed: {
       type: "boolean",
     },
     signed_date: {

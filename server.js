@@ -2,7 +2,8 @@ const express = require("express");
 const deviceRepo = require("./repositories/deviceRepository");
 const userRepo = require("./repositories/userRepository");
 const mobileRepo = require("./repositories/mobileRepository");
-const lineRepo = require("./repositories/lineRepository");
+const lineRepo = require("./repositories/lineRepository.js");
+const userController = require("./controller/userController");
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.get("/userInfo", userRepo.getUsers);
 
 app.get("/userInfo/:id", userRepo.getUserById);
 
-app.post("/", userRepo.createUser);
+app.post("/users", userController.createUser);
 
 app.put("/userInfo/:id", userRepo.updateUsers);
 

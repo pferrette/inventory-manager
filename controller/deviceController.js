@@ -1,6 +1,10 @@
 const deviceService = require("../services/deviceService");
 
-async function createDevice(req, res) {
-  const device = await deviceService.createDevice(req.body);
-  res.status(201).json(device);
+async function updateDevice(req, res) {
+  const device = await deviceService.updateDevice(req.body);
+  res.json(device);
 }
+
+module.exports = {
+  updateDevice,
+};

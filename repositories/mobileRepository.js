@@ -24,7 +24,7 @@ const getMobilesById = async (req, res) => {
 const createMobile = async (req, res) => {
   const { imei, model } = req.body;
   try {
-    const results = await pool.query(
+    await pool.query(
       `INSERT INTO mobiles (imei, model)
    VALUES ($1, $2)`,
       [imei, model],
@@ -56,6 +56,16 @@ const updateMobiles = async (req, res) => {
   }
 };
 
+async function changeUser(data) {
+  const { user_id, id } = data;
+  await pool.query(
+    `
+    UPDATE mobiles SET user_id = $1 WHERE id = $2
+    `,
+    [user_id, id],
+  );
+}
+
 const deleteMobiles = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {
@@ -73,4 +83,5 @@ module.exports = {
   createMobile,
   updateMobiles,
   deleteMobiles,
+  changeUser,
 };

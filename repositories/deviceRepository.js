@@ -31,26 +31,21 @@ const makeComment = async (req, res) => {
   }
 };
 
-const changeUser = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+async function changeUser(data) {
+  const { to_user_id, id } = data;
 
-  const { newUser, userId } = req.body;
-  console.log({ newUser, id });
   try {
-    await pool.query(
-      `UPDATE "devices"
-        SET user_id = (
-        SELECT "id"
-        FROM users
-          WHERE "name" = $1)
-      WHERE id = $2`,
-      [newUser, id],
+    const device = await pool.query(
+      `UPDATE devices
+        SET user_id = $1 
+        WHERE id = $2 RETURNING *`,
+      [to_user_id, id],
     );
-    //await pool.query(`INSERT INTO "LastChange" ("ComputerID","FromUser","ToUserID","ChangedDate") Values($1,$2,$3,$4);`,[id,])
+    return device.rows[0];
   } catch (error) {
     throw error;
   }
-};
+}
 
 module.exports = {
   getDevices,

@@ -56,6 +56,10 @@ const updateLines = async (req, res) => {
   }
 };
 
+// async function assingToMobile(data){
+//   const {id,mobile_id}
+// }
+
 const deleteLine = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {

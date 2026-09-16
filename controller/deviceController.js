@@ -1,7 +1,7 @@
 const deviceService = require("../services/deviceService");
 
 async function updateDevice(req, res) {
-  const device = await deviceService.updateDevice(req.body);
+  const device = await deviceService.updateDeviceUser(req.body);
   res.json(device);
 }
 

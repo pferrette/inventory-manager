@@ -4,6 +4,8 @@ const userRepo = require("./repositories/userRepository");
 const mobileRepo = require("./repositories/mobileRepository");
 const lineRepo = require("./repositories/lineRepository.js");
 const userController = require("./controller/userController");
+const mobileController = require("./controller/mobileController.js");
+const deviceController = require("./controller/deviceController.js");
 
 const app = express();
 
@@ -31,7 +33,7 @@ app.get("/deviceInfo", deviceRepo.getDevices);
 
 app.put("/deviceInfo/:id", deviceRepo.makeComment);
 
-app.put("/changeUser/:id", deviceRepo.changeUser);
+app.put("/changeDeviceUser", deviceController.updateDevice);
 
 app.get("/mobileInfo", mobileRepo.getMobiles);
 
@@ -40,6 +42,8 @@ app.get("/mobileInfo/:id", mobileRepo.getMobilesById);
 app.post("/", mobileRepo.createMobile);
 
 app.put("/mobileInfo/:id", mobileRepo.updateMobiles);
+
+app.put("/mobileUser", mobileController.updateMobile);
 
 app.delete("/mobileInfo/:id", mobileRepo.deleteMobiles);
 

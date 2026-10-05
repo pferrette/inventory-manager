@@ -41,14 +41,11 @@ async function showLastChange() {
   const lastChange = data.last;
 
   for (let row = 0; row < lastChange.length; row++) {
-    console.log(row);
-
     tbrow = table.insertRow(row);
     tbody.appendChild(tbrow);
 
     cell_from = tbrow.insertCell(0);
     cell_from.textContent = Object.values(lastChange)[row].from_user_name;
-    console.log(Object.values(lastChange)[row].from_user_name);
 
     cell_to = tbrow.insertCell(1);
     cell_to.textContent = Object.values(lastChange)[row].to_user_name;

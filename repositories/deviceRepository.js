@@ -3,7 +3,18 @@ const { pool } = require("../database.js");
 const getDevices = async (req, res) => {
   try {
     const results = await pool.query(
-      `SELECT "devices"."id","name" as "user",	"hostname",	"asset_tag",	"model",	"service_tag",	"express_code",	"warranty",	"comments" FROM "devices" INNER JOIN "users" ON "devices"."user_id" = "users"."id";`,
+      `SELECT devices.id,
+           users.name,
+           user_id,
+           hostname,
+           asset_tag,
+           model,
+           service_tag,
+           express_code,
+           warranty,
+           comments 
+        FROM devices 
+        INNER JOIN users ON devices.user_id = users.id;`,
     );
     res.status(200).json({ device: results.rows });
   } catch (error) {
@@ -12,6 +23,15 @@ const getDevices = async (req, res) => {
     //await pool.end();
   }
 };
+
+async function getById(id) {
+  try {
+    const result = await pool.query(`SELECT * from devices WHERE id=$1;`, [id]);
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
 
 const makeComment = async (req, res) => {
   const id = parseInt(req.params.id, 10);
@@ -51,4 +71,5 @@ module.exports = {
   getDevices,
   makeComment,
   changeUser,
+  getById,
 };

@@ -46,16 +46,16 @@ document.getElementById("btnUser").addEventListener("click", async (e) => {
     tbody.appendChild(tbrow);
 
     cell_ID = tbrow.insertCell(0);
-    cell_ID.textContent = Object.values(users)[row].Id;
+    cell_ID.textContent = Object.values(users)[row].id;
 
     cell_Name = tbrow.insertCell(1);
-    cell_Name.textContent = Object.values(users)[row].Name;
+    cell_Name.textContent = Object.values(users)[row].name;
 
     cell_CC = tbrow.insertCell(2);
-    cell_CC.textContent = Object.values(users)[row].CC;
+    cell_CC.textContent = Object.values(users)[row].center_cost;
 
     cell_Email = tbrow.insertCell(3);
-    cell_Email.textContent = Object.values(users)[row].Email;
+    cell_Email.textContent = Object.values(users)[row].email;
   }
 });
 

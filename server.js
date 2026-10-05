@@ -45,7 +45,7 @@ app.put("/deviceInfo/:id", deviceRepo.makeComment);
 app.put("/changeDeviceUser", deviceController.updateDevice);
 
 //mobile
-app.get("/mobileInfo", mobileRepo.getMobiles);
+app.get("/mobiles", mobileController.getAllMobiles);
 
 app.get("/mobileInfo/:id", mobileRepo.getMobilesById);
 

@@ -1,13 +1,29 @@
 const { pool } = require("../database.js");
 
-const getMobiles = async (req, res) => {
+async function getMobiles() {
   try {
-    const results = await pool.query(`select * from mobiles`);
-    res.status(200).json({ mobiles: results.rows });
+    const results = await pool.query(`SELECT
+        m.id,
+        u.name,
+        m.user_id,
+        m.imei,
+        m.model,
+        COALESCE(l.number, 'not assigned') AS line_number,
+        m.line_id,
+        m.buy_date,
+        m.price,
+        m.payment_status,
+        m.tranche_price
+    FROM mobiles AS m
+    INNER JOIN users AS u
+        ON m.user_id = u.id
+    LEFT JOIN lines AS l
+        ON m.line_id = l.id;`);
+    return results.rows;
   } catch (error) {
     throw error;
   }
-};
+}
 
 const getMobilesById = async (req, res) => {
   const id = parseInt(req.params.id, 10);

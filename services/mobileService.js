@@ -13,6 +13,12 @@ async function assignMobileToUser(mobileData) {
   });
 }
 
+async function getAllMobiles() {
+  const returnedMobiles = await mobileRepo.getMobiles();
+  return returnedMobiles;
+}
+
 module.exports = {
   assignMobileToUser,
+  getAllMobiles,
 };

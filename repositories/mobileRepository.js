@@ -37,6 +37,18 @@ const getMobilesById = async (req, res) => {
   }
 };
 
+async function getByUserId(userId) {
+  try {
+    const result = await pool.query(
+      `SELECT * from mobiles WHERE user_id = $1;`,
+      [userId],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
+
 const createMobile = async (req, res) => {
   const { imei, model } = req.body;
   try {
@@ -100,4 +112,5 @@ module.exports = {
   updateMobiles,
   deleteMobiles,
   changeUser,
+  getByUserId,
 };

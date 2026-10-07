@@ -13,6 +13,18 @@ async function assignMobileToUser(mobileData) {
   });
 }
 
+async function getAllMobiles() {
+  const returnedMobiles = await mobileRepo.getMobiles();
+  return returnedMobiles;
+}
+
+async function getByUserId(id) {
+  const mobile = await mobileRepo.getByUserId(id);
+  return mobile;
+}
+
 module.exports = {
   assignMobileToUser,
+  getAllMobiles,
+  getByUserId,
 };

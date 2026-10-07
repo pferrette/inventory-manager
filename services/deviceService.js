@@ -23,5 +23,5 @@ async function updateDeviceUser(deviceData) {
 }
 
 module.exports = {
-  updateDevice,
+  updateDeviceUser,
 };

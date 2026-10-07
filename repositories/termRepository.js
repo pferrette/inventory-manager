@@ -26,8 +26,38 @@ async function updateMobileTerm(data) {
   );
 }
 
+async function getTerms() {
+  const result = await pool.query(`
+     SELECT
+      t.id,
+      u.name,
+      t.user_id,
+      t.is_signed,
+      t.data_term_status,
+      t.signed_date
+    FROM term_status AS t
+    INNER JOIN users AS u
+      ON t.user_id = u.id;
+    ;`);
+  return result.rows;
+}
+
+async function getTermsByUserId(userId) {
+  try {
+    const result = await pool.query(
+      `SELECT * from term_status WHERE user_id = $1;`,
+      [userId],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createTerm,
   updateDeviceTerm,
   updateMobileTerm,
+  getTerms,
+  getTermsByUserId,
 };

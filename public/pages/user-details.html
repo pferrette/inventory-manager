@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script defer src="../js/user-details.js"></script>
+    <title>User</title>
+  </head>
+  <body>
+    <div id="div-user">
+      <h3 id="name">Nome</h3>
+      <h4 id="cc">CC</h4>
+      <h4 id="email">Email</h4>
+    </div>
+    <button>Edit</button>
+    <br /><br />
+    <div id="div-device">
+      <h3>Device</h3>
+      <table>
+        <tbody>
+          <tr id="empty"></tr>
+          <tr id="hostname"></tr>
+          <tr id="model"></tr>
+          <tr id="asset_tag"></tr>
+          <tr id="service_tag"></tr>
+          <tr id="express_code"></tr>
+          <tr id="warranty"></tr>
+        </tbody>
+      </table>
+      <br />
+      <button>Edit</button>
+    </div>
+    <div id="div-mobile">
+      <h3>Mobiles</h3>
+      <table>
+        <tbody>
+          <tr id="Mobileempty"></tr>
+          <tr id="mobileModel"></tr>
+          <tr id="imei"></tr>
+          <tr id="out_of_policy"></tr>
+          <tr id="payment_status"></tr>
+        </tbody>
+      </table>
+      <br />
+      <button>Edit</button>
+    </div>
+    <div id="div-lines" hidden="true">
+      <h3>Using Lines</h3>
+      <table id="line_table" hidden="true">
+        <thead>
+          <th>Line</th>
+          <th>Type</th>
+        </thead>
+      </table>
+    </div>
+    <div id="div-terms">
+      <h3>Term Status</h3>
+      <label id="equip-term-status"></label><br />
+      <label id="data-term-status"></label>
+    </div>
+  </body>
+</html>

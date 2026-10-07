@@ -56,7 +56,7 @@ tbody.appendChild(tbrow);
 const baseUrl = "http://localhost:5000/";
 document.getElementById("btnDevice").addEventListener("click", async (e) => {
   e.preventDefault();
-  const res = await fetch(baseUrl + "deviceInfo", {
+  const res = await fetch(baseUrl + "device", {
     method: "GET",
   });
   const data = await res.json();
@@ -67,31 +67,32 @@ document.getElementById("btnDevice").addEventListener("click", async (e) => {
     tbody.appendChild(tbrow);
 
     cell_ID = tbrow.insertCell(0);
-    cell_ID.textContent = Object.values(devices)[row].Id;
+    cell_ID.textContent = Object.values(devices)[row].id;
 
     cell_User = tbrow.insertCell(1);
-    cell_User.textContent = Object.values(devices)[row].User;
+    cell_User.textContent = Object.values(devices)[row].name;
 
     cell_Hostname = tbrow.insertCell(2);
-    cell_Hostname.textContent = Object.values(devices)[row].Hostname;
+    cell_Hostname.textContent = Object.values(devices)[row].hostname;
 
     cell_AssetTag = tbrow.insertCell(3);
-    cell_AssetTag.textContent = Object.values(devices)[row].AssetTag;
+    cell_AssetTag.textContent = Object.values(devices)[row].asset_tag;
 
     cell_Model = tbrow.insertCell(4);
-    cell_Model.textContent = Object.values(devices)[row].Model;
+    cell_Model.textContent = Object.values(devices)[row].model;
 
     cell_ServiceTag = tbrow.insertCell(5);
-    cell_ServiceTag.textContent = Object.values(devices)[row].ServiceTag;
+    cell_ServiceTag.textContent = Object.values(devices)[row].service_tag;
 
     cell_ExpressCode = tbrow.insertCell(6);
-    cell_ExpressCode.textContent = Object.values(devices)[row].ExpressCode;
+    cell_ExpressCode.textContent = Object.values(devices)[row].express_code;
 
     cell_Warranty = tbrow.insertCell(7);
-    cell_Warranty.textContent = Object.values(devices)[row].Warranty;
+    cell_Warranty.textContent =
+      Object.values(devices)[row].warranty.split("T")[0];
 
     cell_Comments = tbrow.insertCell(8);
-    cell_Comments.textContent = Object.values(devices)[row].Comments;
+    cell_Comments.textContent = Object.values(devices)[row].comments;
   }
 });
 
@@ -104,6 +105,7 @@ const model = document.getElementById("model");
 const serviceTag = document.getElementById("serviceTag");
 const express = document.getElementById("express");
 const newUser = document.getElementById("newUserInput");
+
 //Row Click
 table.addEventListener("click", function (event) {
   const row = event.target.closest("tr");
@@ -125,7 +127,7 @@ table.addEventListener("click", function (event) {
 
 document.getElementById("btnChangeDevice").addEventListener("click", (e) => {
   e.preventDefault();
-  changeForm.hidden = false;
+  window.location.href = "device-details.html";
 });
 
 document
@@ -141,14 +143,17 @@ document
     });
   });
 
-document.getElementById("saveChange").addEventListener("click", async (e) => {
-  e.preventDefault();
+// document.getElementById("saveChange").addEventListener("click", async (e) => {
+//   e.preventDefault();
 
-  const res = fetch(`${baseUrl}changeUser/${device_id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      newUser: newUser.value,
-    }),
-  });
-});
+//   const res = fetch(`${baseUrl}changeDeviceUser`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       device_id: id,
+//       from_user_id: actualUser.value,
+//       to_user_id: newUser.value,
+//       reason: reason,
+//     }),
+//   });
+// });

@@ -42,9 +42,22 @@ async function getTerms() {
   return result.rows;
 }
 
+async function getTermsByUserId(userId) {
+  try {
+    const result = await pool.query(
+      `SELECT * from term_status WHERE user_id = $1;`,
+      [userId],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createTerm,
   updateDeviceTerm,
   updateMobileTerm,
   getTerms,
+  getTermsByUserId,
 };

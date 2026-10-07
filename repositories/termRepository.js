@@ -26,8 +26,25 @@ async function updateMobileTerm(data) {
   );
 }
 
+async function getTerms() {
+  const result = await pool.query(`
+     SELECT
+      t.id,
+      u.name,
+      t.user_id,
+      t.is_signed,
+      t.data_term_status,
+      t.signed_date
+    FROM term_status AS t
+    INNER JOIN users AS u
+      ON t.user_id = u.id;
+    ;`);
+  return result.rows;
+}
+
 module.exports = {
   createTerm,
   updateDeviceTerm,
   updateMobileTerm,
+  getTerms,
 };

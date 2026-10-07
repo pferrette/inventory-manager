@@ -9,6 +9,7 @@ const userController = require("./controller/userController");
 const mobileController = require("./controller/mobileController.js");
 const deviceController = require("./controller/deviceController.js");
 const lastChangeController = require("./controller/lastChangeController.js");
+const termController = require("./controller/termController.js");
 
 const app = express();
 
@@ -70,6 +71,9 @@ app.delete("/lineInfo/:id", lineRepo.deleteLine);
 
 //last changes
 app.get("/changes", lastChangeController.getChanges);
+
+//terms
+app.get("/terms", termController.getTerms);
 
 //port
 app.listen(port, () => console.log(`Server running on port ${port}`));

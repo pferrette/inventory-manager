@@ -10,6 +10,7 @@ const mobileController = require("./controller/mobileController.js");
 const deviceController = require("./controller/deviceController.js");
 const lastChangeController = require("./controller/lastChangeController.js");
 const termController = require("./controller/termController.js");
+const lineController = require("./controller/lineController.js");
 
 const app = express();
 
@@ -28,9 +29,13 @@ app.use(
 //user
 app.get("/userInfo", userRepo.getUsers);
 
-app.get("/userInfo/:id", userRepo.getUserById);
+app.get("/api/user/:id", userController.getUserById);
 
-app.post("/users", userController.createUser);
+app.get("/users/:id", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "public/pages", "user-details.html"));
+});
+
+app.post("/user", userController.createUser);
 
 app.put("/userInfo/:id", userRepo.updateUsers);
 
@@ -41,6 +46,8 @@ app.get("/device", deviceRepo.getDevices);
 
 app.get("/device/:id", deviceController.getDeviceById);
 
+app.get("/api/device/:id", deviceController.getDeviceByUserId);
+
 app.put("/deviceInfo/:id", deviceRepo.makeComment);
 
 app.put("/changeDeviceUser", deviceController.updateDevice);
@@ -49,6 +56,8 @@ app.put("/changeDeviceUser", deviceController.updateDevice);
 app.get("/mobiles", mobileController.getAllMobiles);
 
 app.get("/mobileInfo/:id", mobileRepo.getMobilesById);
+
+app.get("/api/mobile/:id", mobileController.getMobileByUserId);
 
 app.post("/", mobileRepo.createMobile);
 
@@ -63,6 +72,8 @@ app.get("/linesInfo", lineRepo.getLines);
 
 app.get("/lineInfo/:id", lineRepo.getLineById);
 
+app.get("/api/lines/:id", lineController.getLineByUserId);
+
 app.post("/", lineRepo.createLine);
 
 app.put("/lineInfo/:id", lineRepo.updateLines);
@@ -74,6 +85,7 @@ app.get("/changes", lastChangeController.getChanges);
 
 //terms
 app.get("/terms", termController.getTerms);
+app.get("/api/terms/:id", termController.getTermsByUserId);
 
 //port
 app.listen(port, () => console.log(`Server running on port ${port}`));

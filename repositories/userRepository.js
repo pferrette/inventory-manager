@@ -11,18 +11,10 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  console.log(id);
-  try {
-    const results = await pool.query("SELECT * FROM users WHERE id=$1", [id]);
-    res.status(200).json(results.rows);
-  } catch (error) {
-    throw error;
-  } finally {
-    //await pool.end();
-  }
-};
+async function getUserById(id) {
+  const results = await pool.query("SELECT * FROM users WHERE id=$1", [id]);
+  return results.rows[0];
+}
 
 const createUser = async (userData) => {
   const { name, center_cost, email } = userData;

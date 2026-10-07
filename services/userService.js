@@ -11,6 +11,11 @@ async function createUser(userData) {
   return user;
 }
 
+async function getUserById(id) {
+  return await userRepo.getUserById(id);
+}
+
 module.exports = {
   createUser,
+  getUserById,
 };

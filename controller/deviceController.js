@@ -7,14 +7,19 @@ async function updateDevice(req, res) {
 }
 
 async function getDeviceById(req, res) {
-  console.log("acionou o controller");
   const id = parseInt(req.params.id, 10);
-  console.log(id);
   const device = await deviceRepository.getById(id);
   res.json(device);
+}
+
+async function getDeviceByUserId(req, res) {
+  const userId = parseInt(req.params.id, 10);
+  const result = await deviceRepository.getByUserId(userId);
+  res.json({ device: result });
 }
 
 module.exports = {
   updateDevice,
   getDeviceById,
+  getDeviceByUserId,
 };

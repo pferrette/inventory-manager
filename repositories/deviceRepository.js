@@ -33,6 +33,18 @@ async function getById(id) {
   }
 }
 
+async function getByUserId(userId) {
+  try {
+    const result = await pool.query(
+      `SELECT * from devices WHERE user_id = $1;`,
+      [userId],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
+
 const makeComment = async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -46,8 +58,6 @@ const makeComment = async (req, res) => {
     res.status(200).send(`Comment saved to DeviceID: ${id}`);
   } catch (error) {
     throw error;
-  } finally {
-    // await pool.end();
   }
 };
 
@@ -72,4 +82,5 @@ module.exports = {
   makeComment,
   changeUser,
   getById,
+  getByUserId,
 };

@@ -69,14 +69,14 @@ const makeComment = async (req, res) => {
 };
 
 async function changeUser(data) {
-  const { to_user_id, id } = data;
+  const { to_user_id, device_id } = data;
 
   try {
     const device = await pool.query(
       `UPDATE devices
         SET user_id = $1 
         WHERE id = $2 RETURNING *`,
-      [to_user_id, id],
+      [to_user_id, device_id],
     );
     return device.rows[0];
   } catch (error) {

@@ -31,6 +31,8 @@ app.get("/userInfo", userRepo.getUsers);
 
 app.get("/api/user/:id", userController.getUserById);
 
+app.get("/api/username/:name", userController.getByUsername);
+
 app.get("/users/:id", (req, res) => {
   res.sendFile(path.join(process.cwd(), "public/pages", "user-details.html"));
 });
@@ -52,9 +54,9 @@ app.get("/devices/:id", deviceController.getDeviceById);
 
 app.get("/api/device/:id", deviceController.getDeviceByUserId);
 
-app.put("/deviceInfo/:id", deviceRepo.makeComment);
+app.patch("/device/comment/:id", deviceRepo.makeComment);
 
-app.put("/changeDeviceUser", deviceController.updateDevice);
+app.patch("/changeDeviceUser", deviceController.updateDevice);
 
 //mobile
 app.get("/mobiles", mobileController.getAllMobiles);

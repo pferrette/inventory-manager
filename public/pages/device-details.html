@@ -25,5 +25,28 @@
     <label id="warranty_date">Date: </label><br />
     <label id="warranty_status">Status: </label><br />
     <!-- <label id="days_left">Days Left: </label><br /> -->
+    <div id="editDevice">
+      <br /><br />
+      <button id="commentBtn">Comment</button>
+      <button id="btn-change-user">Change User</button>
+    </div>
+    <div id="comment-div" hidden>
+      <br />
+      <textarea
+        name="comment"
+        id="device-comment"
+        rows="5"
+        cols="50"
+      ></textarea>
+    </div>
+    <div id="change-user-div" hidden>
+      <br />
+      <label id="newUser">Assig to: </label>
+      <input type="text" name="new-user" id="txt-new-user" />
+      <button id="btn-check">Check name</button>
+    </div>
+    <div id="save-div">
+      <button id="btn-save" hidden>Save Changes</button>
+    </div>
   </body>
 </html>

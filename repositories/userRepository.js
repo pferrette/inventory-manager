@@ -63,10 +63,27 @@ const deleteUsers = async (req, res) => {
   }
 };
 
+async function getByUsername(username) {
+  console.log("repo:" + username);
+  const user = await pool.query(
+    `
+    SELECT *
+      FROM 
+        users
+      WHERE
+        name
+      ILIKE
+        '%${username}%'
+    ;`,
+  );
+  return user.rows[0];
+}
+
 module.exports = {
   getUsers,
   createUser,
   getUserById,
   updateUsers,
   deleteUsers,
+  getByUsername,
 };

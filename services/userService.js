@@ -15,7 +15,13 @@ async function getUserById(id) {
   return await userRepo.getUserById(id);
 }
 
+async function getByUsername(name) {
+  console.log("service:" + name);
+  return await userRepo.getByUsername(name);
+}
+
 module.exports = {
   createUser,
   getUserById,
+  getByUsername,
 };

@@ -13,7 +13,14 @@ async function getUserById(req, res) {
   return res.json({ user: users });
 }
 
+async function getByUsername(req, res) {
+  const name = req.params.name;
+  const result = await userService.getByUsername(name);
+  return res.json(result);
+}
+
 module.exports = {
   createUser,
   getUserById,
+  getByUsername,
 };

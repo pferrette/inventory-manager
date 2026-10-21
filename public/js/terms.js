@@ -58,8 +58,8 @@ async function showTerms() {
     cell_data.textContent = dataValue;
 
     cell_date = tbrow.insertCell(3);
-    const date = Object.values(terms)[row].signed_date.split("T")[0];
-    cell_date.textContent = date;
+    const date = Object.values(terms)[row].signed_date;
+    cell_date.textContent = date !== null ? date : "Null";
   }
 }
 showTerms();

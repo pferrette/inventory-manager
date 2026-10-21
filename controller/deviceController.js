@@ -8,8 +8,8 @@ async function updateDevice(req, res) {
 
 async function getDeviceById(req, res) {
   const id = parseInt(req.params.id, 10);
-  const device = await deviceRepository.getById(id);
-  res.json(device);
+  const returnedDevice = await deviceService.getDeviceById(id);
+  return res.json({ device: returnedDevice });
 }
 
 async function getDeviceByUserId(req, res) {

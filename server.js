@@ -44,7 +44,11 @@ app.delete("/userInfo/:id", userRepo.deleteUsers);
 //device
 app.get("/device", deviceRepo.getDevices);
 
-app.get("/device/:id", deviceController.getDeviceById);
+app.get("/device/:id", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "public/pages", "device-details.html"));
+});
+
+app.get("/devices/:id", deviceController.getDeviceById);
 
 app.get("/api/device/:id", deviceController.getDeviceByUserId);
 

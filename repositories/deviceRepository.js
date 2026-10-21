@@ -26,7 +26,14 @@ const getDevices = async (req, res) => {
 
 async function getById(id) {
   try {
-    const result = await pool.query(`SELECT * from devices WHERE id=$1;`, [id]);
+    const result = await pool.query(
+      `SELECT * 
+      FROM devices
+      INNER JOIN users on devices.user_id = users.id 
+      WHERE devices.id=$1
+      ;`,
+      [id],
+    );
     return result.rows[0];
   } catch (error) {
     throw error;

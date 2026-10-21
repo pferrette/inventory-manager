@@ -22,6 +22,12 @@ async function updateDeviceUser(deviceData) {
   return device;
 }
 
+async function getDeviceById(id) {
+  const res = await deviceRepo.getById(id);
+  return res;
+}
+
 module.exports = {
   updateDeviceUser,
+  getDeviceById,
 };

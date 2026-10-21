@@ -81,7 +81,7 @@ async function termStatus(id) {
     : (data_status.innerText = "Data Term: Not signed 🔴");
 }
 
-const line_table = document.getElementById("line_table");
+//const line_table = document.getElementById("line_table");
 // async function loadLines(id) {
 //   const res = await fetch(baseUrl + "api/lines/" + id, {
 //     method: "GET",

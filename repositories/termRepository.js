@@ -1,15 +1,17 @@
 const { pool } = require("../database");
 
 async function createTerm(data) {
-  // console.log("user id on term repo data:" + data);
+  const { user_id } = data;
+  console.log("user id on term repo data:" + user_id);
   // const userId = ;
   // console.log("user id on term repo create function:" + userId);
-  await pool.query(
+  const newTerm = await pool.query(
     `INSERT INTO term_status (user_id,is_signed)
       VALUES 
       ($1,false)`,
-    [data],
+    [user_id],
   );
+  console.log("New term created:" + newTerm);
 }
 
 async function updateDeviceTerm(data) {

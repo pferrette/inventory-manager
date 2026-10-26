@@ -17,8 +17,15 @@ async function getMobileByUserId(req, res) {
   res.json({ mobile: result });
 }
 
+async function getMobile(req, res) {
+  const mobileId = parseInt(req.params.id, 10);
+  const result = await mobileService.getMobileById(mobileId);
+  res.json({ mobile: result });
+}
+
 module.exports = {
   updateMobile,
   getAllMobiles,
   getMobileByUserId,
+  getMobile,
 };

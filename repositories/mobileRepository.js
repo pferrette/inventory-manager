@@ -25,17 +25,24 @@ async function getMobiles() {
   }
 }
 
-const getMobilesById = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+async function getMobilesById(data) {
+  const id = data;
   try {
-    const results = await pool.query("SELECT * FROM mobiles WHERE id= $1;", [
-      id,
-    ]);
-    res.status(200).json(results.rows);
+    const results = await pool.query(
+      `SELECT *
+        FROM mobiles 
+        JOIN users 
+          ON mobiles.user_id = users.id
+        JOIN lines 
+          ON mobiles.line_id = lines.id
+        WHERE mobiles.id = $1;`,
+      [id],
+    );
+    return results.rows[0];
   } catch (error) {
     throw error;
   }
-};
+}
 
 async function getByUserId(userId) {
   try {

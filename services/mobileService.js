@@ -23,8 +23,13 @@ async function getByUserId(id) {
   return mobile;
 }
 
+async function getMobileById(id) {
+  return await mobileRepo.getMobilesById(id);
+}
+
 module.exports = {
   assignMobileToUser,
   getAllMobiles,
   getByUserId,
+  getMobileById,
 };

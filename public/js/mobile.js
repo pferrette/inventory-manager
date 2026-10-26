@@ -58,7 +58,8 @@ async function showMobiles() {
     tbody.appendChild(tbrow);
 
     cell_mId = tbrow.insertCell(0);
-    cell_mId.textContent = Object.values(mobiles)[row].id;
+    const mobileId = Object.values(mobiles)[row].id;
+    cell_mId.innerHTML = `<a href="http://localhost:5000/mobile/${mobileId}">${mobileId}</a>`;
 
     cell_name = tbrow.insertCell(1);
     cell_name.textContent = Object.values(mobiles)[row].name;

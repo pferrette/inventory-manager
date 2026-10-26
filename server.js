@@ -61,7 +61,11 @@ app.patch("/changeDeviceUser", deviceController.updateDevice);
 //mobile
 app.get("/mobiles", mobileController.getAllMobiles);
 
-app.get("/mobileInfo/:id", mobileRepo.getMobilesById);
+app.get("/mobile/:id", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "public/pages", "mobile-details.html"));
+});
+
+app.get("/mobile/detail/:id", mobileController.getMobile);
 
 app.get("/api/mobile/:id", mobileController.getMobileByUserId);
 

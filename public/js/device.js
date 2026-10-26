@@ -1,9 +1,6 @@
 var table = document.createElement("table");
 var thead = document.createElement("thead");
 var tbody = document.createElement("tbody");
-var changeForm = document.getElementById("changeForm");
-
-changeForm.hidden = true;
 
 document.getElementById("div_device").appendChild(table);
 
@@ -54,9 +51,9 @@ var tbrow = table.insertRow(1);
 tbody.appendChild(tbrow);
 
 const baseUrl = "http://localhost:5000/";
-document.getElementById("btnDevice").addEventListener("click", async (e) => {
-  e.preventDefault();
-  const res = await fetch(baseUrl + "deviceInfo", {
+
+async function loadDeviceInfo() {
+  const res = await fetch(baseUrl + "device", {
     method: "GET",
   });
   const data = await res.json();
@@ -67,33 +64,38 @@ document.getElementById("btnDevice").addEventListener("click", async (e) => {
     tbody.appendChild(tbrow);
 
     cell_ID = tbrow.insertCell(0);
-    cell_ID.textContent = Object.values(devices)[row].Id;
+    const id = Object.values(devices)[row].id;
+    cell_ID.innerHTML = `<a href="http://localhost:5000/device/${id}">${id}</a>`;
 
     cell_User = tbrow.insertCell(1);
-    cell_User.textContent = Object.values(devices)[row].User;
+    cell_User.textContent = Object.values(devices)[row].name;
 
     cell_Hostname = tbrow.insertCell(2);
-    cell_Hostname.textContent = Object.values(devices)[row].Hostname;
+    cell_Hostname.textContent = Object.values(devices)[row].hostname;
 
     cell_AssetTag = tbrow.insertCell(3);
-    cell_AssetTag.textContent = Object.values(devices)[row].AssetTag;
+    cell_AssetTag.textContent = Object.values(devices)[row].asset_tag;
 
     cell_Model = tbrow.insertCell(4);
-    cell_Model.textContent = Object.values(devices)[row].Model;
+    cell_Model.textContent = Object.values(devices)[row].model;
 
     cell_ServiceTag = tbrow.insertCell(5);
-    cell_ServiceTag.textContent = Object.values(devices)[row].ServiceTag;
+    cell_ServiceTag.textContent = Object.values(devices)[row].service_tag;
 
     cell_ExpressCode = tbrow.insertCell(6);
-    cell_ExpressCode.textContent = Object.values(devices)[row].ExpressCode;
+    cell_ExpressCode.textContent = Object.values(devices)[row].express_code;
 
     cell_Warranty = tbrow.insertCell(7);
-    cell_Warranty.textContent = Object.values(devices)[row].Warranty;
+    cell_Warranty.textContent = new Date(
+      Object.values(devices)[row].warranty,
+    ).toLocaleDateString("pt-br");
 
     cell_Comments = tbrow.insertCell(8);
-    cell_Comments.textContent = Object.values(devices)[row].Comments;
+    cell_Comments.textContent = Object.values(devices)[row].comments;
   }
-});
+}
+
+loadDeviceInfo();
 
 let device_id;
 const txtComment = document.getElementById("txtComments");
@@ -104,51 +106,55 @@ const model = document.getElementById("model");
 const serviceTag = document.getElementById("serviceTag");
 const express = document.getElementById("express");
 const newUser = document.getElementById("newUserInput");
+
 //Row Click
-table.addEventListener("click", function (event) {
-  const row = event.target.closest("tr");
+// table.addEventListener("click", function (event) {
+//   const row = event.target.closest("tr");
 
-  if (!row) return;
+//   if (!row) return;
 
-  device_id = row.cells[0].innerText;
-  document.getElementById("lblId").innerText = "ID: " + device_id;
+//   device_id = row.cells[0].innerText;
+//   document.getElementById("lblId").innerText = "ID: " + device_id;
 
-  txtComment.value = row.cells[8].innerText;
+//   txtComment.value = row.cells[8].innerText;
 
-  actualUser.innerText += row.cells[1].innerText;
-  dhostname.innerText += row.cells[2].innerText;
-  asset.innerText += row.cells[3].innerText;
-  model.innerText += row.cells[4].innerText;
-  serviceTag.innerText += row.cells[5].innerText;
-  express.innerText += row.cells[6].innerText;
-});
+//   actualUser.innerText += row.cells[1].innerText;
+//   dhostname.innerText += row.cells[2].innerText;
+//   asset.innerText += row.cells[3].innerText;
+//   model.innerText += row.cells[4].innerText;
+//   serviceTag.innerText += row.cells[5].innerText;
+//   express.innerText += row.cells[6].innerText;
+// });
 
-document.getElementById("btnChangeDevice").addEventListener("click", (e) => {
-  e.preventDefault();
-  changeForm.hidden = false;
-});
+// document.getElementById("btnChangeDevice").addEventListener("click", (e) => {
+//   e.preventDefault();
+//   window.location.href = "device-details.html";
+// });
 
-document
-  .getElementById("btnCommentDevice")
-  .addEventListener("click", async (e) => {
-    e.preventDefault();
-    const res = await fetch(`${baseUrl}deviceInfo/${device_id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        comment: txtComment.value,
-      }),
-    });
-  });
+// document
+//   .getElementById("btnCommentDevice")
+//   .addEventListener("click", async (e) => {
+//     e.preventDefault();
+//     const res = await fetch(`${baseUrl}deviceInfo/${device_id}`, {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         comment: txtComment.value,
+//       }),
+//     });
+//   });
 
-document.getElementById("saveChange").addEventListener("click", async (e) => {
-  e.preventDefault();
+// document.getElementById("saveChange").addEventListener("click", async (e) => {
+//   e.preventDefault();
 
-  const res = fetch(`${baseUrl}changeUser/${device_id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      newUser: newUser.value,
-    }),
-  });
-});
+//   const res = fetch(`${baseUrl}changeDeviceUser`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       device_id: id,
+//       from_user_id: actualUser.value,
+//       to_user_id: newUser.value,
+//       reason: reason,
+//     }),
+//   });
+// });

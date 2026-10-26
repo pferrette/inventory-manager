@@ -22,6 +22,17 @@ const getLineById = async (req, res) => {
   }
 };
 
+async function getLineByUserId(userId) {
+  try {
+    const res = await pool.query(`SELECT * FROM lines WHERE user_id = $1`, [
+      userId,
+    ]);
+    return res.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 const createLine = async (req, res) => {
   const { number, type, is_using } = req.body;
   try {
@@ -56,10 +67,6 @@ const updateLines = async (req, res) => {
   }
 };
 
-// async function assingToMobile(data){
-//   const {id,mobile_id}
-// }
-
 const deleteLine = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {
@@ -78,4 +85,5 @@ module.exports = {
   createLine,
   updateLines,
   deleteLine,
+  getLineByUserId,
 };

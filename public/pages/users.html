@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Users</title>
     <link rel="stylesheet" href="../css/style.css" />
+    <script defer src="../js/users.js"></script>
   </head>
   <header>
     <a href="index.html">Back</a>
   </header>
   <body>
-    <div id="div_user">
+    <br />
+    <button id="plusBtn">+</button>
+    <div id="div_user" hidden>
       <form action="">
-        <label for="uname" id="lblId">ID:</label><br />
-        <label for="uname">Name:</label><br />
+        <label for="uname" id="lblId" hidden>ID:</label><br />
+        <label for="uname">Name</label><br />
         <input type="text" id="inputName" /><br />
-        <label for="ucc">Center Cost:</label><br />
+        <label for="ucc">Center Cost</label><br />
         <input type="text" id="inputCC" /><br />
-        <label for="uemail">Email:</label><br />
+        <label for="uemail">Email</label><br />
         <input type="text" id="inputEmail" /><br /><br />
-        <button id="btnPostUser">Submit</button>
+        <!-- <button id="btnPostUser">Submit</button>
         <button id="btnUpdateUser">Update</button><br /><br />
-        <button id="btnDeleteUser">Delete</button><br /><br />
+        <button id="btnDeleteUser">Delete</button><br /><br /> -->
+        <button id="createUser">Create User</button><br /><br />
       </form>
-      <button id="btnUser">Refresh</button>
-      <script src="../js/users.js"></script>
+    </div>
+    <div id="user_table">
+      <!-- <button id="btnUser">Refresh</button> -->
     </div>
   </body>
 </html>

@@ -28,7 +28,7 @@ async function loadDevice(id) {
     method: "GET",
   });
   const data = await res.json();
-  console.log(data.device);
+  console.log("Device:" + data.device);
   if (data.device == undefined) {
     empty.innerText = "Not assigned 💻";
   } else {
@@ -52,7 +52,7 @@ async function loadMobile(id) {
     method: "GET",
   });
   const data = await res.json();
-  console.log(data.mobile);
+  console.log("Mobile:" + data.mobile);
   if (data.mobile == undefined) {
     Mobileempty.innerText = "Not assigned 📱";
   } else {
@@ -65,6 +65,7 @@ async function loadMobile(id) {
 
 const equip_status = document.getElementById("equip-term-status");
 const data_status = document.getElementById("data-term-status");
+
 async function termStatus(id) {
   line_table.hidden = false;
   const res = await fetch(baseUrl + "api/terms/" + id, {
@@ -72,13 +73,18 @@ async function termStatus(id) {
   });
   const data = await res.json();
   const status = data.terms;
-  console.log(status);
-  status.is_signed === true
-    ? (equip_status.innerText = "Equipment Term: Signed 🟢")
-    : (equip_status.innerText = "Equipment Term: Not signed 🔴");
-  status.data_term_status === true
-    ? (data_status.innerText = "Data Term: Signed 🟢")
-    : (data_status.innerText = "Data Term: Not signed 🔴");
+  console.log("Term: " + status);
+  if (status) {
+    status.is_signed === true
+      ? (equip_status.innerText = "Equipment Term: Signed 🟢")
+      : (equip_status.innerText = "Equipment Term: Not signed 🔴");
+    status.data_term_status === true
+      ? (data_status.innerText = "Data Term: Signed 🟢")
+      : (data_status.innerText = "Data Term: Not signed 🔴");
+  } else {
+    equip_status.innerText = "Equipment Term: Not signed 🔴";
+    data_status.innerText = "Data Term: Not signed 🔴";
+  }
 }
 
 //const line_table = document.getElementById("line_table");

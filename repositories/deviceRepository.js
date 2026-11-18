@@ -3,7 +3,18 @@ const { pool } = require("../database.js");
 const getDevices = async (req, res) => {
   try {
     const results = await pool.query(
-      `SELECT "devices"."id","name" as "user",	"hostname",	"asset_tag",	"model",	"service_tag",	"express_code",	"warranty",	"comments" FROM "devices" INNER JOIN "users" ON "devices"."user_id" = "users"."id";`,
+      `SELECT devices.id,
+           users.name,
+           user_id,
+           hostname,
+           asset_tag,
+           model,
+           service_tag,
+           express_code,
+           warranty,
+           comments 
+        FROM devices 
+        INNER JOIN users ON devices.user_id = users.id;`,
     );
     res.status(200).json({ device: results.rows });
   } catch (error) {
@@ -12,6 +23,34 @@ const getDevices = async (req, res) => {
     //await pool.end();
   }
 };
+
+async function getById(id) {
+  try {
+    const result = await pool.query(
+      `SELECT * 
+      FROM devices
+      INNER JOIN users on devices.user_id = users.id 
+      WHERE devices.id=$1
+      ;`,
+      [id],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getByUserId(userId) {
+  try {
+    const result = await pool.query(
+      `SELECT * from devices WHERE user_id = $1;`,
+      [userId],
+    );
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
 
 const makeComment = async (req, res) => {
   const id = parseInt(req.params.id, 10);
@@ -26,20 +65,18 @@ const makeComment = async (req, res) => {
     res.status(200).send(`Comment saved to DeviceID: ${id}`);
   } catch (error) {
     throw error;
-  } finally {
-    // await pool.end();
   }
 };
 
 async function changeUser(data) {
-  const { to_user_id, id } = data;
+  const { to_user_id, device_id } = data;
 
   try {
     const device = await pool.query(
       `UPDATE devices
         SET user_id = $1 
         WHERE id = $2 RETURNING *`,
-      [to_user_id, id],
+      [to_user_id, device_id],
     );
     return device.rows[0];
   } catch (error) {
@@ -51,4 +88,6 @@ module.exports = {
   getDevices,
   makeComment,
   changeUser,
+  getById,
+  getByUserId,
 };

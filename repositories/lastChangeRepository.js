@@ -14,6 +14,39 @@ async function createLastChange(data) {
   }
 }
 
+async function getChanges() {
+  try {
+    const result = await pool.query(
+      `SELECT
+            lc.id,
+            lc.device_id,
+            d.service_tag,
+            d.asset_tag,
+
+            fu.id AS from_user_id,
+            fu.name AS from_user_name,
+
+            tu.id AS to_user_id,
+            tu.name AS to_user_name,
+          tu.center_cost AS cc,
+
+            lc.reason,
+            lc.changed_date
+        FROM last_changes lc
+        LEFT JOIN users fu
+            ON lc.from_user_id = fu.id
+        LEFT JOIN users tu
+            ON lc.to_user_id = tu.id
+        LEFT JOIN devices d
+            ON lc.device_id = d.id;`,
+    );
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createLastChange,
+  getChanges,
 };

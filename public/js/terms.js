@@ -60,6 +60,10 @@ async function showTerms() {
     cell_date = tbrow.insertCell(3);
     const date = Object.values(terms)[row].signed_date;
     cell_date.textContent = date !== null ? date : "Null";
+
+    cell_details = tbrow.insertCell(4);
+    const id = Object.values(terms)[row].user_id;
+    cell_details.innerHTML = `<a href="${baseUrl}users/${id}">[View Details]</a>`;
   }
 }
 showTerms();

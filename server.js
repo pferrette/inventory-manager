@@ -78,7 +78,7 @@ app.put("/mobileUser", mobileController.updateMobile);
 app.delete("/mobileInfo/:id", mobileRepo.deleteMobiles);
 
 //lines
-app.get("/linesInfo", lineRepo.getLines);
+app.get("/lines", lineRepo.getLines);
 
 app.get("/lineInfo/:id", lineRepo.getLineById);
 
@@ -95,7 +95,10 @@ app.get("/changes", lastChangeController.getChanges);
 
 //terms
 app.get("/terms", termController.getTerms);
+
 app.get("/api/terms/:id", termController.getTermsByUserId);
+
+// app.patch("/terms/:id", termController.updateTerm);
 
 //port
 app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -67,7 +67,7 @@ const equip_status = document.getElementById("equip-term-status");
 const data_status = document.getElementById("data-term-status");
 
 async function termStatus(id) {
-  line_table.hidden = false;
+  // line_table.hidden = false;
   const res = await fetch(baseUrl + "api/terms/" + id, {
     method: "GET",
   });

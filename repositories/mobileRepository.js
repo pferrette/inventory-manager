@@ -47,7 +47,12 @@ async function getMobilesById(data) {
 async function getByUserId(userId) {
   try {
     const result = await pool.query(
-      `SELECT * from mobiles WHERE user_id = $1;`,
+      `SELECT *
+        FROM mobiles 
+          JOIN users ON mobiles.user_id = users.id
+          JOIN lines ON mobiles.line_id = lines.id
+        WHERE users.id= $1
+      ;`,
       [userId],
     );
     return result.rows[0];

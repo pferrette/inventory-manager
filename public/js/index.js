@@ -32,6 +32,27 @@ headLine5.innerHTML = "CC";
 
 table.appendChild(tbody);
 
+const month = document.getElementById("month");
+const date = new Date();
+const currentMonth = date.getMonth();
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+month.innerText = months[currentMonth] + " Changes";
+
 const baseUrl = "http://localhost:5000/";
 async function showLastChange() {
   const result = await fetch(baseUrl + "changes", {

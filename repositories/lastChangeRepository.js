@@ -38,7 +38,43 @@ async function getChanges() {
         LEFT JOIN users tu
             ON lc.to_user_id = tu.id
         LEFT JOIN devices d
-            ON lc.device_id = d.id;`,
+            ON lc.device_id = d.id
+        ;`,
+    );
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getMonthsChanges(month) {
+  try {
+    const result = await pool.query(
+      `SELECT
+            lc.id,
+            lc.device_id,
+            d.service_tag,
+            d.asset_tag,
+
+            fu.id AS from_user_id,
+            fu.name AS from_user_name,
+
+            tu.id AS to_user_id,
+            tu.name AS to_user_name,
+          tu.center_cost AS cc,
+
+            lc.reason,
+            lc.changed_date
+        FROM last_changes lc
+        LEFT JOIN users fu
+            ON lc.from_user_id = fu.id
+        LEFT JOIN users tu
+            ON lc.to_user_id = tu.id
+        LEFT JOIN devices d
+            ON lc.device_id = d.id
+		    WHERE EXTRACT(MONTH FROM changed_date) = $1
+        ;`,
+      [month],
     );
     return result.rows;
   } catch (error) {
@@ -49,4 +85,5 @@ async function getChanges() {
 module.exports = {
   createLastChange,
   getChanges,
+  getMonthsChanges,
 };

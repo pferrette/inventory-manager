@@ -11,7 +11,7 @@ async function loadUser(id) {
   const data = await res.json();
   console.log(data.user);
   userName.innerText = data.user.name;
-  cc.innerText = data.user.center_cost;
+  cc.innerText = "Center Cost: " + data.user.center_cost;
   email.innerText = data.user.email;
 }
 
@@ -32,12 +32,16 @@ async function loadDevice(id) {
   if (data.device == undefined) {
     empty.innerText = "Not assigned 💻";
   } else {
-    hostname.innerText = data.device.hostname;
-    model.innerText = data.device.model;
-    asset_tag.innerText = data.device.asset_tag;
-    service_tag.innerText = data.device.service_tag;
-    express_code.innerText = data.device.express_code;
-    warranty.innerText = data.device.warranty;
+    const deviceId = data.device.id;
+    hostname.innerHTML = `<a href="${baseUrl}device/:${deviceId}"> ${data.device.hostname} </a>`;
+    model.innerText = "Model: " + data.device.model;
+    asset_tag.innerText = "Asset Tag: " + data.device.asset_tag;
+    service_tag.innerText = "Service Tag: " + data.device.service_tag;
+    express_code.innerText = "Express Code: " + data.device.express_code;
+
+    const warrantyDate = new Date(data.device.warranty);
+    warranty.innerText =
+      "End Warranty Date: " + warrantyDate.toLocaleDateString();
   }
 }
 
@@ -46,6 +50,7 @@ const mobileModel = document.getElementById("mobileModel");
 const imei = document.getElementById("imei");
 const out_of_policy = document.getElementById("out_of_policy");
 const payment_status = document.getElementById("payment_status");
+const line_number = document.getElementById("line_number");
 
 async function loadMobile(id) {
   const res = await fetch(baseUrl + "api/mobile/" + id, {
@@ -56,10 +61,11 @@ async function loadMobile(id) {
   if (data.mobile == undefined) {
     Mobileempty.innerText = "Not assigned 📱";
   } else {
-    mobileModel.innerText = data.mobile.model;
-    imei.innerText = data.mobile.imei;
-    out_of_policy.innerText = data.mobile.out_of_policy;
-    payment_status.innerText = data.mobile.payment_status;
+    mobileModel.innerText = "Model: " + data.mobile.model;
+    imei.innerText = "IMEI: " + data.mobile.imei;
+    out_of_policy.innerText = "Out of Policy?: " + data.mobile.out_of_policy;
+    payment_status.innerText = "Payment Status: " + data.mobile.payment_status;
+    line_number.innerText = "Number: " + data.mobile.number;
   }
 }
 
